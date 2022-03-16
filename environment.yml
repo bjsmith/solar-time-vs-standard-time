@@ -1,0 +1,40 @@
+name: py2_mapping
+channels:
+  - conda-forge
+  - https://conda.anaconda.org/erik
+  - defaults
+dependencies:
+  - ca-certificates=2021.10.8=h033912b_0
+  - certifi=2019.11.28=py27h8c360ce_1
+  - jinja2=2.11.3=pyh44b312d_0
+  - libblas=3.9.0=13_osx64_openblas
+  - libcblas=3.9.0=13_osx64_openblas
+  - libcxx=13.0.1=hc203e6f_0
+  - libffi=3.2.1=hb1e8313_1007
+  - libgfortran=5.0.0=9_3_0_h6c81a4c_23
+  - libgfortran5=9.3.0=h6c81a4c_23
+  - liblapack=3.9.0=13_osx64_openblas
+  - libopenblas=0.3.18=openmp_h3351f45_0
+  - libzlib=1.2.11=h9173be1_1013
+  - llvm-openmp=13.0.1=hcb1a161_1
+  - markupsafe=1.1.1=py27h89ed719_1
+  - ncurses=6.3=he49afe7_0
+  - numpy=1.15.4=py27hbb3c62a_1002
+  - openssl=1.1.1l=h0d85af4_0
+  - pandas=0.24.2=py27h86efe34_0
+  - pip=20.1.1=pyh9f0ad1d_0
+  - pycountry=20.7.3=pyh9f0ad1d_0
+  - pyshp=1.2.11=py27_0
+  - python=2.7.15=h8e446fc_1011_cpython
+  - python-dateutil=2.8.1=py_0
+  - python_abi=2.7=1_cp27m
+  - pytz=2019.3=py_0
+  - readline=8.1=h05e3726_0
+  - setuptools=44.0.0=py27_0
+  - six=1.16.0=pyh6c4a22f_0
+  - sqlite=3.37.1=hb516253_0
+  - tk=8.6.12=h5dbffcc_0
+  - wheel=0.37.1=pyhd8ed1ab_0
+  - zlib=1.2.11=h9173be1_1013
+prefix: /Users/benjaminsmith/anaconda/envs/py2_mapping
+

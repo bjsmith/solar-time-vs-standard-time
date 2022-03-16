@@ -163,13 +163,13 @@ text.infobox {
 {% for city in cities %}
   {% if city.capital %}
   <circle class="city-capital" cx="{{ city.x }}" cy="{{ city.y }}" r="2" />
-    {% if city.inhabitants >= 2000000 %}
+    {% if city.inhabitants >= 200000 %}
   <text class="city-capital" x="{{ city.x }}" y="{{ city.y + city.dy }}" style="text-anchor: {{ city.anchor }}">
     &#x00A0;{{ city.name }}&#x00A0;
   </text>
     {% endif %}
   {% else %}
-    {% if city.inhabitants >= 5000000 %}
+    {% if city.inhabitants >= 4000000 %}
   <circle class="city-noncapital" cx="{{ city.x }}" cy="{{ city.y }}" r="1.5" />
   <text class="city-noncapital" x="{{ city.x }}" y="{{ city.y + city.dy }}" style="text-anchor: {{ city.anchor }}">
     &#x00A0;&#x00A0;{{ city.name }}&#x00A0;&#x00A0;

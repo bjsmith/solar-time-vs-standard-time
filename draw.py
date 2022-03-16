@@ -288,27 +288,31 @@ def getCountries():
 
 def getCities():
     print "Reading cities..."
-    r = shapefile.Reader("./cities/cities.shp")
+    r = shapefile.Reader("./cities/World_Cities.shp")
     cities = []
     for s in r.shapeRecords():
-        inhabitants = s.record[2]
-        capital = s.record[3]
+        #updated for the ESRI world cities source.
+        city_name = s.record[2]
+        inhabitants = s.record[8]
+        city_status = s.record[7]
+        is_capital = city_status in ["National capital", 'National capital and provincial capital enclave',
+                                     'National and provincial capital']
         importance = 0
         override = CITIES_OVERRIDE.get(s.record[0], {})
         cities.append({
             "x": tx(s.shape.points[0]),
             "y": ty(s.shape.points[0]),
             "inhabitants": inhabitants,
-            "capital": capital == "Y",
-            "name": s.record[0],
+            "capital": is_capital,
+            "name": city_name,
             "anchor": override.get('x_anchor', 'start'),
             "dy": 0
         })
         dy = override.get('y_anchor', 'top')
         if dy == 'middle':
-            cities[-1]['dy'] += capital == "Y" and 6 or 4
+            cities[-1]['dy'] += is_capital and 6 or 4
         elif dy == 'bottom':
-            cities[-1]['dy'] += capital == "Y" and 12 or 8
+            cities[-1]['dy'] += is_capital and 12 or 8
     return cities
 
 

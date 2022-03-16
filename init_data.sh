@@ -13,11 +13,14 @@ unzip tz_world.zip
 mv world/* ./
 popd
 
-mkdir cities
-pushd cities
-wget http://legacy.jefferson.kctcs.edu/techcenter/gis%20data/World/Zip/cities.zip
-unzip cities.zip
-popd
+#no longer available
+echo "world cities data must be downloaded manually. a good source as of March 2022 appears to be"
+echo "https://hub.arcgis.com/datasets/esri::world-cities/about"
+#mkdir cities
+#pushd cities
+#wget http://legacy.jefferson.kctcs.edu/techcenter/gis%20data/World/Zip/cities.zip
+#unzip cities.zip
+#popd
 
 mkdir output
 pushd output

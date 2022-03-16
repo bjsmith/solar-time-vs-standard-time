@@ -1,0 +1,7 @@
+cities/
+fips10c/
+tz_world/
+.idea
+.DS_Store
+output/
+*.pyc
