@@ -208,9 +208,9 @@ text.infobox {
     <stop style="stop-color:{{ COLORS[5] }};" offset="1" />
   </linearGradient>
 
-  <rect x="{{ WIDTH / 24 }}"
+  <rect x="{{ WIDTH / 22 }}"
         y="{{ 16 * HEIGHT / 22 - 120 }}"
-        width="{{ WIDTH / 24 * 5 + 100 }}"
+        width="{{ WIDTH / 24 * 4 + 100 }}"
         height="{{ 8 * HEIGHT / 10 / 10 }}"
         fill="#ffffff"
         stroke="#000000" />
@@ -224,7 +224,7 @@ text.infobox {
   <text x="{{ WIDTH / 22 + 50 + WIDTH / 24 * 2 }}"
         y="{{16 * HEIGHT / 22 - 120 + 3.5 * HEIGHT / 10 / 10 }}"
         class="infobox">
-    Difference between solar time and standard time (h)
+    Difference between solar time and daylight saving time if applicable (h)
   </text>
 
   <rect style="fill: url(#tzGradInfoBox);"

@@ -23,13 +23,19 @@ WIDTH = 6000
 HEIGHT = 4400
 HEIGHT_RATIO = 2 * 180 * 1.25 * log(tan(0.25 * pi + 0.4 * pi * 90 / 180.0))
 COLORS = [
-    '#bf201f',
+    # '#e7e700', #yellow
+    # '#DAA50A', # https://meyerweb.com/eric/tools/color-blend/#E7E700:BF201F:2:hex
+    # '#CC6215'
+    '#bf201f', #red
     '#ef302f',
     '#ff2a29',
-    '#f7f7f7',
+    '#f7f7f7', #white
     '#2962ff',
     '#2f6aef',
-    '#1f4abf',
+    '#1f4abf'#, #blue
+    # '#267590',
+    # '#2CA162',
+    # '#33CC33' #green
     ]
 
 
@@ -124,7 +130,8 @@ def computeSizePositionAndSpacing(name, b):
     return name, size, (avgX, avgY - (size * (lines - 1)) / 2), spacing
 
 
-def tzOffset(tz_name):
+
+def tzOffsetStandard(tz_name):
     if tz_name in TZ_OVERRIDE:
         return TZ_OVERRIDE[tz_name][0]
     tz = timezone(tz_name)
@@ -139,7 +146,23 @@ def tzOffset(tz_name):
     return int(td.days * 24 * 60 + td.seconds  / 60.0)
 
 
-def findTimezones():
+def tzOffsetDST(tz_name):
+    if tz_name in TZ_OVERRIDE:
+        return TZ_OVERRIDE[tz_name][0]
+    tz = timezone(tz_name)
+    dec = datetime(2020, 12, 30)
+    jun = datetime(2021, 6, 30)
+    #this gets the timezone offset with DST if it exists.
+    if tz.dst(dec, is_dst=True):
+        td = tz.utcoffset(dec, is_dst=True)
+    elif not tz.dst(jun, is_dst=True):
+        td = tz.utcoffset(jun, is_dst=True)
+    else:
+        td = tz.utcoffset(jun, is_dst=True)
+    return int(td.days * 24 * 60 + td.seconds  / 60.0)
+
+
+def findTimezones(DST):
     print "Reading timezones..."
     r = shapefile.Reader("./tz_world/tz_world.shp")
 
@@ -152,7 +175,10 @@ def findTimezones():
 
     offsets = dict()
     for tz in timezones:
-        offset = tzOffset(tz)
+        if DST:
+            offset = tzOffsetDST(tz)
+        else:
+            offset = tzOffsetStandard(tz)
         if offset not in offsets:
             offsets[offset] = list()
         offsets[offset] += timezones[tz]
@@ -209,8 +235,8 @@ def splitParts(parts):
     return newparts
 
 
-def getTimezones():
-    offsets = findTimezones()
+def getTimezones(DST):
+    offsets = findTimezones(DST=DST)
     timezones = []
     filtered = 0
     for offset in offsets:
@@ -324,14 +350,15 @@ def getTzLabels():
     return labels
 
 
-def getData():
+def getData(DST=False):
+
     return {
         "WIDTH": WIDTH,
         "HEIGHT": HEIGHT,
         "COLORS": COLORS,
         "drawLine": drawLine,
         "hours": getHours(),
-        "timezones": getTimezones(),
+        "timezones": getTimezones(DST),
         "countries": getCountries(),
         "cities": getCities(),
         "tzLabels": getTzLabels(),
@@ -340,10 +367,14 @@ def getData():
     }
 
 
+
 if __name__ == "__main__":
     env = jinja2.Environment(loader=jinja2.FileSystemLoader("./"),
                              trim_blocks=True,
                              lstrip_blocks=True)
-    template = env.get_template("template.svg")
-    with open("./output/base.svg", "w") as f:
-        f.write(template.render(getData()).encode("UTF-8"))
+    # template = env.get_template("template.svg")
+    # with open("./output/base_standard.svg", "w") as f:
+    #      f.write(template.render(getData()).encode("UTF-8"))
+    template = env.get_template("template_dst.svg")
+    with open("./output/base_dst.svg", "w") as f:
+        f.write(template.render(getData(DST=True)).encode("UTF-8"))
